@@ -1,0 +1,9 @@
+CREATE TABLE obra (
+    id SERIAL PRIMARY KEY,
+    titulo VARCHAR(255) NOT NULL,
+    descripcion VARCHAR(1000),
+    artista VARCHAR(255) NOT NULL,
+    fecha_ingreso DATE NOT NULL DEFAULT CURRENT_DATE,
+    precio DECIMAL(10, 2) NOT NULL,
+    vendida BOOLEAN DEFAULT FALSE
+);
