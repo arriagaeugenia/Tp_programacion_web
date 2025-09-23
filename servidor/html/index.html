@@ -6,9 +6,11 @@
 
   <style>
     h1 {
-      color: rgb(125, 30, 180);
-      font-family: Arial, sans-serif;
+      color: rgb(104, 12, 12);
+      font-family: 'Quicksand';
+      font-weight: 300;
       text-align: center;
+      font-size: 50px;
     }
     h2 {
       text-align: center;
@@ -22,27 +24,60 @@
       text-align: center;
     }
     body{
-    background: linear-gradient(to bottom, rgb(180, 127, 216), rgb(255, 148, 207));
-     overflow-y: scroll;  /* solo scroll vertical */
-      overflow-x: hidden;  /* oculta el horizontal */
+      background: rgb(255, 255, 255);
+      margin: 0%;
     }
+
+     header {
+      padding: 0.3rem;
+      border-bottom: 1px solid rgb(104, 12, 12);
+      background-color: rgb(104, 12, 12);
+      text-align: center;
+    }
+
+    nav {
+      margin-top: 0.5rem;
+    }
+
+    nav a {
+      margin: 0 1rem;
+      text-decoration: none;
+      color: #ffffff;
+      font-weight: bold;
+      justify-content: center;
+      align-content: center;
+    }
+
+    nav a:hover {
+      color: rgb(32, 7, 7);
+    }
+
   </style>
 
   <body>
-    <h1>Bienvenido a la galeria mas cool que existe</h1>
+    <header>
+      <nav>
+        <a href="#">Inicio</a>
+        <a href="#">Exposiciones</a>
+        <a href="#">Obras</a>
+        <a href="#">Artistas</a>
+        <a href="#">Contacto</a>
+      </nav>
+    </header>
+    <h1>GALERÍA DE ARTE</h1>
     <img
-      src="/Imagenes/principal.png"
-      alt="las ingenieras detras de esto"
+      src="Imagenes/principal.jpg"
+      alt="Imagen principal"
       style="
         display: block;
         margin: auto;
         border-radius: 10px;
         box-shadow: 2px 2px 5px gray;
-        width: auto;
+        width: 100%;
       "
     />
-    <h2> Descripcion de la pagina</h2>
-    <p>Esta pagina es un catalogo de obras de arte, con su titulo, artista, descripcion y imagenes de la obra
+    <h2> Catálogo de obras: </h2>
+    <p>Esta página presenta obras de arte con su título, artista, descripción y precio.
 </p>
     
 

@@ -1,0 +1,12 @@
+services:
+  db:
+    image: postgres:15
+    container_name: practico_especial
+    environment:
+      POSTGRES_USER: milibianeuge
+      POSTGRES_PASSWORD: programacionweb
+      POSTGRES_DB: db
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./data:/var/lib/postgresql/data
