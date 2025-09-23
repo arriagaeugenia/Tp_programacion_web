@@ -8,7 +8,8 @@ import (
 func main() {
 	staticDir := "./html"
 	// Servidor de archivos
-	http.HandleFunc("/", inicio)
+	fs := http.FileServer(http.Dir(staticDir))
+	http.Handle("/", fs)
 
 	// Puerto
 	port := ":8080"
