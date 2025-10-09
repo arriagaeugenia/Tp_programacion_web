@@ -1,5 +1,5 @@
-module base_de_datos
+module galeriadearte.com
 
-go 1.23.1
+go 1.22.2
 
 require github.com/lib/pq v1.10.9

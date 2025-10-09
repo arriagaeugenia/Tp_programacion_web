@@ -2,12 +2,13 @@
 package main
 
 import (
-	sqlc "base_de_datos/db/sqlc"
 	"context"      // para context.Background()
 	"database/sql" // para sql.Open()
 	"fmt"          // para fmt.Println()
 	"log"
 	"strconv"
+
+	sqlc "galeriadearte.com/base_de_datos/db/sqlc"
 
 	_ "github.com/lib/pq"
 )
