@@ -59,6 +59,7 @@ func inicio(w http.ResponseWriter, r *http.Request) {
 }
 
 func obrasHandler(w http.ResponseWriter, r *http.Request) {
+	println("Estoy en obrasHandler")
 	switch r.Method {
 	case http.MethodGet:
 		getObras(w, r)
@@ -109,15 +110,48 @@ func getObras(w http.ResponseWriter, r *http.Request) {
 }
 
 func createObra(w http.ResponseWriter, r *http.Request) {
-	//creo variable de tipo Obra
-	var nuevaObra sqlc.CreateObraParams
+	println("Estoy en createObraa")
 
+	// Definir estructura para decodificar JSON
+	type reqObra struct {
+		Titulo      string `json:"titulo"`
+		Descripcion string `json:"descripcion"`
+		Artista     string `json:"artista"`
+		Precio      string `json:"precio"`
+		Vendida     string `json:"vendida"`
+	}
+
+	//creo variable de tipo Obra
+	var reqobra reqObra
 	// Decodificar JSON del cuerpo de la solicitud
-	err := json.NewDecoder(r.Body).Decode(&nuevaObra)
+	err := json.NewDecoder(r.Body).Decode(&reqobra)
 	if err != nil {
-		http.Error(w, "Invalid input", http.StatusBadRequest)
+		//http.Error(w, "Invalid inputtttt", http.StatusBadRequest)
+		http.Error(w, fmt.Sprintf("%s: %v", "Error", err), http.StatusBadRequest)
 		return
 	}
+
+	var nuevaObra sqlc.CreateObraParams
+	nuevaObra.Titulo = reqobra.Titulo
+	nuevaObra.Artista = reqobra.Artista
+	nuevaObra.Precio = reqobra.Precio
+
+	//Solo si el usuario envia "true" en el campo Vendida, se setea como true
+	//cualquier otro valor (incluido "" o "false") se setea como false
+	if reqobra.Vendida == "true" {
+		nuevaObra.Vendida = sql.NullBool{Bool: true, Valid: true}
+	} else {
+		nuevaObra.Vendida = sql.NullBool{Bool: false, Valid: true}
+	}
+
+	if reqobra.Descripcion != "" {
+		nuevaObra.Descripcion = sql.NullString{String: reqobra.Descripcion, Valid: true}
+	} else {
+		nuevaObra.Descripcion = sql.NullString{String: "", Valid: false}
+	}
+
+	log.Println("Obra: ", nuevaObra)
+	log.Println("Body: ", r.Body)
 
 	// Inserto en la base de datos
 	createdObra, err := dbQueries.CreateObra(r.Context(), nuevaObra)
@@ -149,6 +183,7 @@ func updateObra(w http.ResponseWriter, r *http.Request) {
 
 	err := json.NewDecoder(r.Body).Decode(&obraActualizada)
 	if err != nil {
+		println("ERROR AL CODIFICAR en update")
 		http.Error(w, "Invalid input", http.StatusBadRequest)
 		return
 	}
