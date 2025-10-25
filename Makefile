@@ -7,7 +7,7 @@ up:
 	cd servidor && go run .  > logs.txt 2>&1 &
 
 	@echo "Generando codigo SQLC..."
-	cd base_de_datos/db && sqlc generate
+	cd base_de_datos && sqlc generate
 
 test:
 	@echo "Ejecutando pruebas Hurl..."

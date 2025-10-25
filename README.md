@@ -36,6 +36,11 @@ sudo apt update && sudo apt install docker.io docker-compose -y
 ```
 Esta instalacion funciona para Ubuntu y Debian
 
+### SQLC para linux:
+```bash
+sudo snap install sqlc
+```
+
 ### Hurl para linux:
     Abrir la terminal y ejecutar:
 
