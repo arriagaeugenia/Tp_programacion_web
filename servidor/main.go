@@ -150,15 +150,13 @@ func createObra(w http.ResponseWriter, r *http.Request) {
 		nuevaObra.Descripcion = sql.NullString{String: "", Valid: false}
 	}
 
-	log.Println("Obra: ", nuevaObra)
-	log.Println("Body: ", r.Body)
-
 	// Inserto en la base de datos
 	createdObra, err := dbQueries.CreateObra(r.Context(), nuevaObra)
 	if err != nil {
 		http.Error(w, "Failed to create obra", http.StatusInternalServerError)
 		return
 	}
+	log.Println("Obra creada exitosamente.")
 
 	// Enviar respuesta con la obra creada
 	w.Header().Set("Content-Type", "application/json")
@@ -178,14 +176,61 @@ func getObra(w http.ResponseWriter, r *http.Request, id int) {
 
 func updateObra(w http.ResponseWriter, r *http.Request) {
 	//id de la obra a actualizar se encuentra dentro del Body.
+	// Definir estructura para decodificar JSON
+	type reqObra struct {
+		Id          int32  `json:"id"`
+		Titulo      string `json:"titulo"`
+		Descripcion string `json:"descripcion"`
+		Artista     string `json:"artista"`
+		Precio      string `json:"precio"`
+		Vendida     string `json:"vendida"`
+	}
+
 	//creo variable de tipo Obra
+	var reqobra reqObra
+	// Decodificar JSON del cuerpo de la solicitud
+	err := json.NewDecoder(r.Body).Decode(&reqobra)
+	if err != nil {
+		//http.Error(w, "Invalid inputtttt", http.StatusBadRequest)
+		http.Error(w, fmt.Sprintf("%s: %v", "Error", err), http.StatusBadRequest)
+		return
+	}
+
+	var obraPorActualizar sqlc.Obra
+	//buscar la obra por id
+	obraPorActualizar, err1 := dbQueries.GetObraById(r.Context(), reqobra.Id)
+	if err1 != nil {
+		http.Error(w, "Obra not found", http.StatusNotFound)
+		return
+	}
+
 	var obraActualizada sqlc.UpdateObraParams
 
-	err := json.NewDecoder(r.Body).Decode(&obraActualizada)
-	if err != nil {
-		println("ERROR AL CODIFICAR en update")
-		http.Error(w, "Invalid input", http.StatusBadRequest)
-		return
+	obraActualizada.ID = reqobra.Id
+	if reqobra.Titulo != "" {
+		obraActualizada.Titulo = reqobra.Titulo
+	} else {
+		obraActualizada.Titulo = obraPorActualizar.Titulo
+	}
+	if reqobra.Descripcion != "" {
+		obraActualizada.Descripcion = sql.NullString{String: reqobra.Descripcion, Valid: true}
+	} else {
+		obraActualizada.Descripcion = obraPorActualizar.Descripcion
+	}
+	if reqobra.Artista != "" {
+		obraActualizada.Artista = reqobra.Artista
+	} else {
+		obraActualizada.Artista = obraPorActualizar.Artista
+	}
+	if reqobra.Precio != "" {
+		obraActualizada.Precio = reqobra.Precio
+	} else {
+		obraActualizada.Precio = obraPorActualizar.Precio
+	}
+	if reqobra.Vendida == "true" {
+		obraActualizada.Vendida = sql.NullBool{Bool: true, Valid: true}
+	} else {
+		obraActualizada.Vendida = sql.NullBool{Bool: false, Valid: true}
 	}
 
 	err2 := dbQueries.UpdateObra(r.Context(), obraActualizada)
