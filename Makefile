@@ -12,9 +12,7 @@ test:
 
 down:
 	@echo "Deteniendo la base de datos..."
-	cd base_de_datos
-	sudo docker-compose down
+	cd base_de_datos && sudo docker-compose down
 
-	cd ../servidor
 	@echo "Deteniendo servidor Go..."
-	-pkill -f "go run" || true
+	cd servidor && -pkill -f "go run" || true
