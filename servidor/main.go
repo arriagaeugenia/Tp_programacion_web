@@ -31,6 +31,8 @@ func main() {
 	http.HandleFunc("/obras", obrasHandler)
 	http.HandleFunc("/obras/", obraHandler)
 	http.HandleFunc("/inicio", inicio)
+	http.HandleFunc("/administrar", administrar)
+	http.HandleFunc("/listarObras", contenedorObras)
 
 	dbQueries = sqlc.New(db)
 
@@ -58,8 +60,21 @@ func inicio(w http.ResponseWriter, r *http.Request) {
 	fmt.Print(w, "./html")
 }
 
+func administrar(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "text/html; charset=utf-8")
+
+	// Carpeta de archivos estáticos, envia el contenido del archivo administrar.html
+	http.ServeFile(w, r, "./html/administrar.html")
+}
+
+func contenedorObras(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "text/html; charset=utf-8")
+
+	// Carpeta de archivos estáticos, envia el contenido del archivo contenedor.html
+	http.ServeFile(w, r, "./html/contenedor.html")
+}
+
 func obrasHandler(w http.ResponseWriter, r *http.Request) {
-	println("Estoy en obrasHandler")
 	switch r.Method {
 	case http.MethodGet:
 		getObras(w, r)
@@ -105,8 +120,44 @@ func getObras(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	type ObraResponse struct {
+		ID          int32  `json:"id"`
+		Titulo      string `json:"titulo"`
+		Artista     string `json:"artista"`
+		Descripcion string `json:"descripcion"`
+		Precio      string `json:"precio"`
+		Vendida     string `json:"vendida"`
+	}
+	var obrasResponse []ObraResponse
+	for _, o := range obras {
+		obrasResponse = append(obrasResponse, ObraResponse{
+			ID:          o.ID,
+			Titulo:      o.Titulo,
+			Artista:     o.Artista,
+			Descripcion: nullStringToString(o.Descripcion),
+			Precio:      o.Precio,
+			Vendida:     nullBoolToBool(o.Vendida),
+		})
+	}
 	// Convertir a JSON y enviar respuesta
-	json.NewEncoder(w).Encode(obras)
+	json.NewEncoder(w).Encode(obrasResponse)
+}
+func nullStringToString(ns sql.NullString) string {
+	if ns.Valid {
+		return ns.String
+	}
+	return ""
+}
+
+func nullBoolToBool(nb sql.NullBool) string {
+	if nb.Valid {
+		if nb.Bool {
+			return "Vendida"
+		} else {
+			return "Disponible"
+		}
+	}
+	return "-"
 }
 
 func createObra(w http.ResponseWriter, r *http.Request) {

@@ -17,8 +17,13 @@
       color:black;
     }
     p {
+      text-align: left;
+      color: rgb(0, 0, 0);
+    }
+    h4 {
       text-align: center;
       color: rgb(0, 0, 0);
+      font-weight: lighter;
     }
     img {
       text-align: center;
@@ -51,6 +56,21 @@
     nav a:hover {
       color: rgb(32, 7, 7);
     }
+    #contenedor-obras {
+      width: 80%;
+      margin: 20px auto;
+    }
+    .shadowbox {
+      width: 300px;
+      margin: 10px;
+      box-shadow: 3px 4px 8px rgba(0, 0, 0, 0.1);
+      padding: 15px;
+      margin-bottom: 15px;
+      border-radius: 5px;
+      background-color: #f9f9f9;
+      display: inline-block;
+      vertical-align: top;
+    }
 
   </style>
 
@@ -59,9 +79,9 @@
       <nav>
         <a href="/">Inicio</a>
         <a href="#">Exposiciones</a>
-        <a href="obras">Obras</a>
+        <a href="listarObras">Obras</a>
         <a href="#">Artistas</a>
-        <a href="#">Contacto</a>
+        <a href="administrar">Administrar</a>
       </nav>
     </header>
     <h1>GALERÍA DE ARTE</h1>
@@ -76,10 +96,10 @@
         width: 100%;
       "
     />
+    <h4>Esta página presenta obras de arte con su título, artista, descripción y precio.</h4>
     <h2> Catálogo de obras: </h2>
-    <p>Esta página presenta obras de arte con su título, artista, descripción y precio.
-</p>
-    
+    <div id="contenedor-obras"> </div>
+    <script src="app.js"></script>
 
   </body>
 </html>

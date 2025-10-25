@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Listar obras</title>
+  </head>
+    <style>
+        body{
+        background: rgb(255, 255, 255);
+        margin: 0%;
+        }
+        h2 {
+        text-align: center;
+        color:black;
+        }
+        header {
+        padding: 0.3rem;
+        border-bottom: 1px solid rgb(104, 12, 12);
+        background-color: rgb(104, 12, 12);
+        text-align: center;
+        }
+
+        nav {
+        margin-top: 0.5rem;
+        }
+
+        nav a {
+        margin: 0 1rem;
+        text-decoration: none;
+        color: #ffffff;
+        font-weight: bold;
+        justify-content: center;
+        align-content: center;
+        }
+
+        nav a:hover {
+        color: rgb(32, 7, 7);
+        }
+        #contenedor-obras {
+        width: 80%;
+        margin: 20px auto;
+        }
+        .shadowbox {
+        width: 300px;
+        margin: 10px;
+        box-shadow: 3px 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 15px;
+        margin-bottom: 15px;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+        display: inline-block;
+        vertical-align: top;
+        }
+    </style>
+  <body>  
+    <header>
+      <nav>
+        <a href="/">Inicio</a>
+        <a href="#">Exposiciones</a>
+        <a href="listarObras">Obras</a>
+        <a href="#">Artistas</a>
+        <a href="administrar">Administrar</a>
+      </nav>
+    </header>
+    <h2>Listado de Obras</h2>  
+    <div id="contenedor-obras"> </div>
+
+    <script src="app.js"></script>
+  </body>
+
+

@@ -1,28 +1,13 @@
 Servidor escuchando en http://localhost:8080
 Sirviendo archivos desde: ./html
-Estoy en obrasHandler
-Estoy en obrasHandler
 Estoy en createObraa
-2025/10/25 16:42:42 Obra creada exitosamente.
-Estoy en obrasHandler
-Estoy en obrasHandler
-Estoy en obrasHandler
+2025/10/25 19:31:19 Obra creada exitosamente.
 Estoy en createObraa
-2025/10/25 16:42:43 Obra creada exitosamente.
-Estoy en obrasHandler
-Estoy en obrasHandler
-Estoy en obrasHandler
+2025/10/25 19:32:14 Obra creada exitosamente.
 Estoy en createObraa
-2025/10/25 16:42:44 Obra creada exitosamente.
-Estoy en obrasHandler
-Estoy en obrasHandler
-Estoy en obrasHandler
+2025/10/25 19:36:52 Obra creada exitosamente.
 Estoy en createObraa
-2025/10/25 16:42:45 Obra creada exitosamente.
-Estoy en obrasHandler
-Estoy en obrasHandler
-Estoy en obrasHandler
+2025/10/25 19:40:24 Obra creada exitosamente.
 Estoy en createObraa
-2025/10/25 16:42:45 Obra creada exitosamente.
-Estoy en obrasHandler
+2025/10/25 19:40:40 Obra creada exitosamente.
 signal: killed
