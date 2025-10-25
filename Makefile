@@ -6,13 +6,16 @@ up:
 	@echo "Levantando el servidor Go..."
 	cd servidor && go run .  > logs.txt 2>&1 &
 
+	@echo "Generando codigo SQLC..."
+	cd base_de_datos/db && sqlc generate
+
 test:
 	@echo "Ejecutando pruebas Hurl..."
 	hurl --test requests.hurl 
 
 down:
 	@echo "Deteniendo la base de datos..."
-	cd base_de_datos && sudo docker-compose down
+	cd base_de_datos && sudo docker-compose stop
 
 	@echo "Deteniendo servidor Go..."
-	cd servidor && -pkill -f "go run" || true
+	cd servidor && kill -9 $(shell sudo lsof -t -i :8080)
