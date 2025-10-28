@@ -5,11 +5,11 @@ GET http://localhost:8080/obras
 HTTP 200
 
 
-# 2. Obtener la obra con id 1
-GET http://localhost:8080/obras/1
+# 2. Obtener la obra con id 8
+GET http://localhost:8080/obras/8
 HTTP 200
 [Asserts]
-jsonpath "$.id" == 1
+jsonpath "$.id" == 8
 
 # 3. Crear una nueva obra
 POST http://localhost:8080/obras

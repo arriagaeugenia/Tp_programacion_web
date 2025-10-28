@@ -161,8 +161,7 @@ func nullBoolToBool(nb sql.NullBool) string {
 }
 
 func createObra(w http.ResponseWriter, r *http.Request) {
-	println("Estoy en createObraa")
-
+	log.Println("Creando una nueva obra...")
 	// Definir estructura para decodificar JSON
 	type reqObra struct {
 		Titulo      string `json:"titulo"`
@@ -226,6 +225,7 @@ func getObra(w http.ResponseWriter, r *http.Request, id int) {
 }
 
 func updateObra(w http.ResponseWriter, r *http.Request) {
+	log.Println("Actualizando obra...")
 	//id de la obra a actualizar se encuentra dentro del Body.
 	// Definir estructura para decodificar JSON
 	type reqObra struct {
@@ -292,10 +292,12 @@ func updateObra(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode("Obra actualizada exitosamente")
+	log.Println("Obra actualizada exitosamente.")
 
 }
 
 func deleteObra(w http.ResponseWriter, r *http.Request, id int) {
+	log.Println("Borrando obra...")
 	//borramos la obra
 	err := dbQueries.DeleteObra(r.Context(), int32(id))
 	if err != nil {
@@ -305,4 +307,5 @@ func deleteObra(w http.ResponseWriter, r *http.Request, id int) {
 	// Respuesta de éxito
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode("Obra eliminada exitosamente")
+	log.Println("Obra borrada exitosamente.")
 }

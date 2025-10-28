@@ -68,6 +68,17 @@ make up
 make test
 ```
 ---
+Luego ir al archivo logs.txt para verificar el correcto funcionamiento del test. Deberias ver algo como esto:
+```
+Servidor escuchando en http://localhost:8080
+Sirviendo archivos desde: ./html
+2025/10/28 17:23:36 Creando una nueva obra...
+2025/10/28 17:23:36 Obra creada exitosamente.
+2025/10/28 17:23:36 Actualizando obra...
+2025/10/28 17:23:36 Obra actualizada exitosamente.
+2025/10/28 17:23:36 Borrando obra...
+2025/10/28 17:23:36 Obra borrada exitosamente.
+```
 
 ### 3. Bajar el servidor y la base de datos
 
@@ -76,9 +87,31 @@ make down
 ```
 ---
 
-## Acceder a la aplicación
+# TPE Parte 4: La capa de presentacion
+### 1. Ejecutar el servidor y la base de datos
+Desde la carpeta `TP_PROGRAMACION_WEB/` correr: 
+
+```bash
+make up
+```
+---
+
+### 2. Acceder a la aplicación
 Abrir en el navegador:  http://localhost:8080
 
+### 3. Navegar en la aplicación web:
+#### -Inicio: 
+En el inicio se encuentra desplegada el catálogo de todas las obras de la galeria, en cada una de ellas se encuentra un botón de eliminar.
+#### -Obras:
+Acá se encuentra el mismo listado de obras que en el inicio.
+#### -Administrar:
+Acá se encuentra el formulario para agregar obras, luego de agregar una obra te redirige a la sección Obras de la aplicación actualizada.
+
+### 4. Bajar la aplicacion
+```bash
+make down
+```
+---
 
 ## Integrantes
 - Milagros Lopez
