@@ -14,6 +14,15 @@ import (
 	sqlc "galeriadearte.com/base_de_datos/db/sqlc"
 )
 
+type ObraResponse struct {
+	ID          int32  `json:"id"`
+	Titulo      string `json:"titulo"`
+	Artista     string `json:"artista"`
+	Descripcion string `json:"descripcion"`
+	Precio      string `json:"precio"`
+	Vendida     string `json:"vendida"`
+}
+
 var dbQueries *sqlc.Queries
 
 func main() {
@@ -33,6 +42,8 @@ func main() {
 	http.HandleFunc("/inicio", inicio)
 	http.HandleFunc("/administrar", administrar)
 	http.HandleFunc("/listarObras", contenedorObras)
+	http.HandleFunc("/exposiciones", exposiciones)
+	http.HandleFunc("/obrasDisponibles", obrasDisponibles)
 
 	dbQueries = sqlc.New(db)
 
@@ -65,6 +76,13 @@ func administrar(w http.ResponseWriter, r *http.Request) {
 
 	// Carpeta de archivos estáticos, envia el contenido del archivo administrar.html
 	http.ServeFile(w, r, "./html/administrar.html")
+}
+
+func exposiciones(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "text/html; charset=utf-8")
+
+	// Carpeta de archivos estáticos, envia el contenido del archivo exposiciones.html
+	http.ServeFile(w, r, "./html/exposiciones.html")
 }
 
 func contenedorObras(w http.ResponseWriter, r *http.Request) {
@@ -112,22 +130,14 @@ func obraHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func getObras(w http.ResponseWriter, r *http.Request) {
-	//llamo a listar obras
 	w.Header().Set("Content-Type", "application/json")
+	//llamo a listar obras
 	obras, err := dbQueries.ListObras(r.Context())
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
 
-	type ObraResponse struct {
-		ID          int32  `json:"id"`
-		Titulo      string `json:"titulo"`
-		Artista     string `json:"artista"`
-		Descripcion string `json:"descripcion"`
-		Precio      string `json:"precio"`
-		Vendida     string `json:"vendida"`
-	}
 	var obrasResponse []ObraResponse
 	for _, o := range obras {
 		obrasResponse = append(obrasResponse, ObraResponse{
@@ -308,4 +318,28 @@ func deleteObra(w http.ResponseWriter, r *http.Request, id int) {
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode("Obra eliminada exitosamente")
 	log.Println("Obra borrada exitosamente.")
+}
+
+func obrasDisponibles(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	//llamo a listar obras
+	obras, err := dbQueries.ListAvailableObras(r.Context())
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	var obrasResponse []ObraResponse
+	for _, o := range obras {
+		obrasResponse = append(obrasResponse, ObraResponse{
+			ID:          o.ID,
+			Titulo:      o.Titulo,
+			Artista:     o.Artista,
+			Descripcion: nullStringToString(o.Descripcion),
+			Precio:      o.Precio,
+			Vendida:     nullBoolToBool(o.Vendida),
+		})
+	}
+	// Convertir a JSON y enviar respuesta
+	json.NewEncoder(w).Encode(obrasResponse)
 }

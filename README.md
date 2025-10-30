@@ -100,12 +100,18 @@ make up
 Abrir en el navegador:  http://localhost:8080
 
 ### 3. Navegar en la aplicación web:
+
 #### -Inicio: 
 En el inicio se encuentra desplegada el catálogo de todas las obras de la galeria, en cada una de ellas se encuentra un botón de eliminar.
+
 #### -Obras:
 Acá se encuentra el mismo listado de obras que en el inicio.
-#### -Administrar:
+
+#### -Añadir:
 Acá se encuentra el formulario para agregar obras, luego de agregar una obra te redirige a la sección Obras de la aplicación actualizada.
+
+#### -Exposición:
+Acá se encuentran listadas las obras disponibles de la galería.
 
 ### 4. Bajar la aplicacion
 ```bash

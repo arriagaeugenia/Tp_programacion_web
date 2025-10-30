@@ -9,13 +9,12 @@
     <header>
       <nav>
         <a href="/">Inicio</a>
-        <a href="#">Exposiciones</a>
+        <a href="exposiciones">Exposiciones</a>
         <a href="listarObras">Obras</a>
-        <a href="#">Artistas</a>
-        <a href="administrar">Administrar</a>
+        <a href="administrar">Añadir</a>
       </nav>
     </header>
-    <h1>Agregar obra</h1>
+    <h2>Agregar obra</h2>
 <main>
     <form id="formUsuario">
       <label for="titulo">Titulo:</label>
@@ -30,8 +29,9 @@
       <label for="precio">Precio:</label>
       <input type="text" id="precio" name="precio" required>
 
-      <label for="vendida">Vendida:</label>
-      <input type="text" id="vendida" name="vendida" required>
+      <label for="vendida" class="checkbox-label">
+        Vendida: <input type="checkbox" id="vendida" name="vendida">
+      </label>
 
       <button type="submit">Enviar</button>
     </form>
@@ -40,12 +40,18 @@
         document.getElementById("formUsuario").addEventListener("submit", async function (e) {
         e.preventDefault();
 
+        let v = "";
+        if (document.getElementById("vendida").checked) {
+          v = "true";
+        } else {
+          v = "false";
+        }
         const data = {
           titulo: document.getElementById("titulo").value,
           artista: document.getElementById("artista").value,
           descripcion: document.getElementById("descripcion").value,
           precio: document.getElementById("precio").value,
-          vendida: document.getElementById("vendida").value
+          vendida: v
         };
 
         const response = await fetch("/obras", {

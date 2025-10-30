@@ -36,7 +36,7 @@ fetch("/obras")
 
                     if (response.ok) {
                         alert("Obra eliminada correctamente");
-                        e.target.closest(".shadowbox").remove(); // elimina el box del DOM
+                        e.target.closest(".shadowbox").remove(); // busca el elemento mas cercano que tenga nombre shadowbox y lo elimina
                     } else {
                         alert("Error al eliminar la obra");
                     }
