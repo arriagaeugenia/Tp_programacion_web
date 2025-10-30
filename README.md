@@ -1,3 +1,17 @@
+# Descarga
+
+Clonar el repositorio de git desde la terminal:
+
+1. Crear una carpeta local en donde se guardará el repositorio
+
+2. .Abrir una nueva terminal y Navegar hasta la carpeta creada con el comando: 'cd/ < ruta >'
+
+3. Ejecute el siguiente comando:
+```bash
+git clone https://github.com/arriagaeugenia/Tp_programacion_web
+```
+
+---
 # TPE Parte 3: Logica de negocio
 
 Este módulo implementa la **logica de negocio** de la aplicación conectando la base de datos con el servidor.
